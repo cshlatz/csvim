@@ -1,5 +1,16 @@
 " Connor Shlatz' vim config file
-" Updated December 6th, 2022
+" Updated February 17th, 2023
+
+"=================="
+"" === vim-plug === "
+"=================="
+" Note to self: If you install this later on a new computer, make sure this exists. Make a symlink. asdf sucks
+let g:coc_node_path = '/usr/bin/nodejs'
+" gem install solargraph - allows for ruby autocomplete
+let g:coc_global_extensions = ['coc-solargraph']
+call plug#begin()
+Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+call plug#end()
 
 "=================="
 "" === Vundle === "
@@ -15,20 +26,21 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'valloric/youcompleteme'
+Plugin 'vim-ruby/vim-ruby'
 
 "=================="
 "" === Basics === "
 "=================="
 
 colorscheme badwolf " classic
+set background=dark
 set autoindent
 set relativenumber
 set number " Setting both relativenumber and number displays current line number
 set tabstop=2 " Two spaces per tab
 set expandtab " On pressing tab, use spaces
 set tw=10000 " No realistic limit to text width
-set wrap! " Turn off wrapping
+set nowrap! " Turn off wrapping
 set noswapfile
 set ic " Search is case insensitive
 set nocompatible " allow for tab completion
@@ -67,6 +79,12 @@ let g:airline#extensions#tabline#enabled = 1 " Display all buffers when only tab
 "================="
 let g:ctrlp_working_path_mode = 'ra'
 
+"===================="
+"" === Ruby/Rails === "
+"===================="
+let g:rubycomplete_rails = 1
+let g:rubycomplete_load_gemfile = 1
+
 "==================="
 "" === Typescript === "
 "==================="
@@ -84,6 +102,9 @@ let g:ale_sign_warning = '❕'
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
+"==================="
+"" === GUI      === "
+"==================="
 " GVIM context menu
 silent! aunmenu PopUp.Select\ Word
 silent! aunmenu PopUp.Select\ Sentence
@@ -95,6 +116,12 @@ silent! aunmenu PopUp.Select\ All
 set mouse=a
 set mousemodel=popup_setpos
 
+set guifont=Monospace\ Bold\ 9
+
 " Hide the background color of these signs
 highlight clear ALEErrorSign
 highlight clear ALEWarningSign
+
+if $TERM == "xterm-256color"
+  set t_Co=256
+endif
