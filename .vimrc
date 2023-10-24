@@ -10,8 +10,11 @@ let g:coc_node_path = '/usr/bin/nodejs'
 let g:coc_global_extensions = ['coc-solargraph']
 call plug#begin()
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+Plug 'ianks/vim-tsx'
 call plug#end()
 
+" Turn off autoindent - vim-plug is fucking stupid and turns it on by default
+filetype indent off
 "=================="
 "" === Vundle === "
 "=================="
@@ -33,10 +36,9 @@ Plugin 'vim-ruby/vim-ruby'
 "=================="
 
 colorscheme badwolf " classic
-set background=dark
-set autoindent
 set relativenumber
 set number " Setting both relativenumber and number displays current line number
+set autoindent
 set tabstop=2 " Two spaces per tab
 set expandtab " On pressing tab, use spaces
 set tw=10000 " No realistic limit to text width
@@ -44,6 +46,7 @@ set nowrap! " Turn off wrapping
 set noswapfile
 set ic " Search is case insensitive
 set nocompatible " allow for tab completion
+set belloff=all " I want whoever made this sound to get hit by a dump truck
 
 " Set typescript
 augroup SyntaxSettings
@@ -90,6 +93,11 @@ let g:rubycomplete_load_gemfile = 1
 "==================="
 filetype plugin on
 let g:test#javascript#runner = 'jest'
+augroup ReactFiletypes
+  autocmd!
+  autocmd BufRead,BufNewFile *.jsx set filetype=javascriptreact
+  autocmd BufRead,BufNewFile *.tsx set filetype=typescriptreact
+augroup END
 
 "==================="
 "" === Ale      === "
