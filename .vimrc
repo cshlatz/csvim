@@ -1,16 +1,19 @@
 " Connor Shlatz' vim config file
-" Updated February 17th, 2023
+" Updated December 7th, 2023
+" Note to self: mac sucks
+
+let g:coc_node_path = '/Users/cshlatz/.asdf/shims/node'
 
 "=================="
 "" === vim-plug === "
 "=================="
-" Note to self: If you install this later on a new computer, make sure this exists. Make a symlink. asdf sucks
-let g:coc_node_path = '/usr/bin/nodejs'
 " gem install solargraph - allows for ruby autocomplete
 let g:coc_global_extensions = ['coc-solargraph']
 call plug#begin()
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'ianks/vim-tsx'
+Plug 'lifepillar/vim-solarized8'
+Plug 'vim-airline/vim-airline'
 call plug#end()
 
 " Turn off autoindent - vim-plug is fucking stupid and turns it on by default
@@ -35,7 +38,8 @@ Plugin 'vim-ruby/vim-ruby'
 "" === Basics === "
 "=================="
 
-colorscheme badwolf " classic
+colorscheme solarized8 " classic
+set background=light
 set relativenumber
 set number " Setting both relativenumber and number displays current line number
 set autoindent
@@ -102,6 +106,7 @@ augroup END
 "==================="
 "" === Ale      === "
 "==================="
+Plug 'dense-analysis/ale'
 " Use emojis as signs like the piece of shit that you are
 let g:ale_sign_error = '❌'
 let g:ale_sign_warning = '❕'
@@ -129,6 +134,8 @@ set guifont=Monospace\ Bold\ 9
 " Hide the background color of these signs
 highlight clear ALEErrorSign
 highlight clear ALEWarningSign
+
+set re=0
 
 if $TERM == "xterm-256color"
   set t_Co=256
